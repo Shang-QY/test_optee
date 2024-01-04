@@ -1,4 +1,4 @@
-# personal.yli147.test_optee
+# Test_OpTee
 
 Compile QEMU
 ```
@@ -22,7 +22,7 @@ cp build/platform/generic/firmware/fw_dynamic.elf $WORKDIR
 Compile OPTEE
 ```
 cd $WORKDIR
-git clone https://github.com/intel-sandbox/personal.yli147.optee_os.git -b nuclei/3.18_dev optee_os
+git clone https://github.com/yli147/optee_os.git -b nuclei/3.18_dev optee_os
 cd optee_os
 make CROSS_COMPILE64=riscv64-linux-gnu- ARCH=riscv CFG_RV64_core=y CFG_TZDRAM_START=0x80C00000 CFG_TZDRAM_SIZE=0x800000 CFG_SHMEM_START=0xFEE00000 CFG_SHMEM_SIZE=0x200000 PLATFORM=nuclei ta-targets=ta_rv64 MARCH=rv64imafdc MABI=lp64d
 cp out/riscv-plat-nuclei/core/tee-pager_v2.bin $WORKDIR
@@ -41,6 +41,11 @@ make CROSS_COMPILE=riscv64-linux-gnu- all
 truncate -s 32M ./u-boot.bin
 cp u-boot.bin $WORKDIR
 ```
+
+![image](https://github.com/intel-sandbox/personal.yli147.test_optee/assets/21300636/2ec5a2a7-cfce-46de-a016-8dce6a6d96e4)
+
+![image](https://github.com/intel-sandbox/personal.yli147.test_optee/assets/21300636/cf20396d-c103-43e3-8ffc-a9e5a6990fcb)
+
 
 Run directly
 ```
