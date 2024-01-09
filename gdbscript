@@ -1,0 +1,31 @@
+set architecture riscv:rv64
+target remote localhost:1234
+set directories ./
+set directories ./opensbi
+set directories ./optee_os
+add-symbol-file ./opensbi/build/platform/generic/firmware/fw_dynamic.elf 0x800000000
+add-symbol-file ./optee_os/out/riscv-plat-nuclei/core/tee.elf 0x80C00000
+
+
+# add-symbol-file ./edk2-staging/Build/RiscVVirtQemu/DEBUG_GCC5/RISCV64/SecMainRiscV64.debug 0x20002240
+# add-symbol-file ./edk2-staging/Build/RiscVVirtQemuStandaloneMm/DEBUG_GCC5/RISCV64/StandaloneMmPkg/Core/StandaloneMmCore/DEBUG/StandaloneMmCore.debug 0x22002000
+# add-symbol-file ./edk2-staging/Build/RiscVVirtQemuStandaloneMm/DEBUG_GCC5/RISCV64/MdeModulePkg/Universal/Variable/RuntimeDxe/VariableStandaloneMm/DEBUG/VariableStandaloneMm.debug 0x815CB240
+# add-symbol-file ./edk2-staging/Build/RiscVVirtQemuStandaloneMm/DEBUG_GCC5/RISCV64/StandaloneMmPkg/Drivers/StandaloneMmCpu/StandaloneMmCpu/DEBUG/StandaloneMmCpu.debug 0x81597240
+# add-symbol-file ./build/platform/generic/firmware/payloads/mmstub/mmstub.elf 0x80200000
+# add-symbol-file ./edk2/Build/RiscVVirtQemu/DEBUG_GCC5/RISCV64/ShellPkg/Application/ShellExecTestApp/SA/DEBUG/EmptyApplication.debug 0xFE2DC240
+# b PeCoffLoaderGetImageInfo
+# b UefiMain 
+# b RuntimeServiceQueryVariableInfo
+# b sm_smm_communicate
+# b sbi_hsm_hart_start_finish
+b sbi_rpxy_final_init
+b *0x20000000
+b *0x22000000
+b *0x80200000
+b *0x80C00000
+b *0x80000000
+# b CreateHobListFromBootInfo
+# b ProcessLibraryConstructorList
+# b ExtractGuidedSectionLibConstructor
+# b PiMmStandaloneArmTfCpuDriverEntry
+tui enable
