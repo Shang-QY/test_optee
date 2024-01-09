@@ -4,12 +4,13 @@ Download this project
 ```
 git clone https://github.com/yli147/test_optee.git
 cd test_optee
+export WORKDIR=`pwd`
 ```
 
 Compile QEMU
 ```
+cd $WORKDIR
 git clone https://github.com/yli147/qemu.git -b dev-standalonemm-rpmi
-export WORKDIR=`pwd`
 cd qemu
 ./configure --target-list=riscv64-softmmu
 make -j $(nproc)
