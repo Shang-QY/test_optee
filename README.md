@@ -42,10 +42,8 @@ truncate -s 32M ./u-boot.bin
 cp u-boot.bin $WORKDIR
 ```
 
-Memory Layout
 ![image](https://github.com/yli147/test_optee/assets/21300636/5cace914-0a82-404e-b106-fb148686f8ff)
 
-Bootflow
 ![image](https://github.com/yli147/test_optee/assets/21300636/6e204e84-fae7-448b-824d-b610ad783339)
 
 
