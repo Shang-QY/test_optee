@@ -1,5 +1,11 @@
 # Test_OpTee
 
+Download this project
+```
+git clone https://github.com/yli147/test_optee.git
+cd test_optee
+```
+
 Compile QEMU
 ```
 git clone https://github.com/yli147/qemu.git -b dev-standalonemm-rpmi
