@@ -42,9 +42,11 @@ truncate -s 32M ./u-boot.bin
 cp u-boot.bin $WORKDIR
 ```
 
-![image](https://github.com/intel-sandbox/personal.yli147.test_optee/assets/21300636/2ec5a2a7-cfce-46de-a016-8dce6a6d96e4)
+Memory Layout
+![image](https://github.com/yli147/test_optee/assets/21300636/5cace914-0a82-404e-b106-fb148686f8ff)
 
-![image](https://github.com/intel-sandbox/personal.yli147.test_optee/assets/21300636/cf20396d-c103-43e3-8ffc-a9e5a6990fcb)
+Bootflow
+![image](https://github.com/yli147/test_optee/assets/21300636/6e204e84-fae7-448b-824d-b610ad783339)
 
 
 Run directly
