@@ -13,7 +13,7 @@ Compile OpenSBI
 
 ```
 cd $WORKDIR
-git clone https://github.com/Penglai-Enclave/opensbi.git -b dev-standalonemm-rpmi
+git clone https://github.com/yli147/opensbi.git -b tee_debug
 cd opensbi
 CROSS_COMPILE=riscv64-linux-gnu- make FW_PIC=n PLATFORM=generic
 cp build/platform/generic/firmware/fw_dynamic.elf $WORKDIR

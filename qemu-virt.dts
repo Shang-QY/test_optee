@@ -25,30 +25,35 @@
 		opensbi-domains {
 			compatible = "opensbi,domain,config";
 
+			tmem: tmem {
+				compatible = "opensbi,domain,memregion";
+				base = <0x0 0x80C00000>;
+				order = <22>;   // 4M
+			};
+
 			allmem: allmem {
 				compatible = "opensbi,domain,memregion";
 				base = <0x0 0x0>;
 				order = <64>;
 			};
 
-			udomain: untrusted-domain {
+			tdomain: trusted-domain {
 				compatible = "opensbi,domain,instance";
 				regions = <&allmem 0x3f>;
-				possible-harts = <&cpu0 &cpu1>;
-				next-arg1 = <0x0 0xbfe00000>;
-				next-addr = <0x0 0x20000000>;
-				next-mode = <0x1>;
-			};
-
-			stmm: stmm-dynamic-domain {
-				compatible = "opensbi,domain,instance\0dynamic";
-				regions = <&allmem 0x3f>;
+				possible-harts = <&cpu0>, <&cpu1>;
 				next-arg1 = <0x0 0x81F80000>;
 				next-addr = <0x0 0x80C00000>;
 				next-mode = <0x1>;
-				system-reset-allowed;
-				boot-order = <0>;
-				excution-ctx-count = <1>;
+			};
+
+			udomain: untrusted-domain {
+				compatible = "opensbi,domain,instance";
+				regions = <&tmem 0x0>, <&allmem 0x3f>;
+				possible-harts = <&cpu0>, <&cpu1>;
+				boot-hart = <&cpu0>;
+				next-arg1 = <0x0 0xbfe00000>;
+				next-addr = <0x0 0x80200000>;
+				next-mode = <0x1>;
 			};
 		};
 	};
@@ -85,7 +90,7 @@
 			reg = <0x00>;
 			status = "okay";
 			compatible = "riscv";
-			opensbi-domain = <&udomain>;
+			opensbi-domain = <&tdomain>;
 			riscv,cboz-block-size = <0x40>;
 			riscv,cbom-block-size = <0x40>;
 			riscv,isa = "rv64imafdch_zicbom_zicboz_zicsr_zifencei_zihintpause_zawrs_zfa_zca_zcd_zba_zbb_zbc_zbs_smaia_ssaia_sstc_svadu";
@@ -106,7 +111,7 @@
 			reg = <0x01>;
 			status = "okay";
 			compatible = "riscv";
-			opensbi-domain = <&udomain>;
+			opensbi-domain = <&tdomain>;
 			riscv,cboz-block-size = <0x40>;
 			riscv,cbom-block-size = <0x40>;
 			riscv,isa = "rv64imafdch_zicbom_zicboz_zicsr_zifencei_zihintpause_zawrs_zfa_zca_zcd_zba_zbb_zbc_zbs_smaia_ssaia_sstc_svadu";
@@ -189,9 +194,9 @@
 			compatible = "riscv,sbi-rpxy-clock";
 		};
 
-		rpmi-ddm-mm {
-			compatible = "riscv,rpmi-ddm-mm";
-			opensbi-domain-instance = <&stmm>;
+		rpmi-mm {
+			compatible = "riscv,rpmi-mm";
+			opensbi-domain-instance = <&tdomain>;
 		};
 
 		mailbox@10001000 {
