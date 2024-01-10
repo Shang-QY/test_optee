@@ -39,13 +39,11 @@ riscv64-linux-gnu-objdump -t -S out/riscv-plat-nuclei/core/tee.elf > $WORKDIR/te
 Compile U-Boot
 ```
 cd $WORKDIR
-git clone https://github.com/Nuclei-Software/u-boot.git
+git clone https://github.com/u-boot/u-boot.git
 cd u-boot
-git checkout b9162c6c8f30098b09bdf79aa2b40204deed7bfd
-cp ../uboot_rv64imafdc_sd_config .config
-make CROSS_COMPILE=riscv64-linux-gnu- olddefconfig
-make CROSS_COMPILE=riscv64-linux-gnu- all
-truncate -s 32M ./u-boot.bin
+git checkout v2023.10
+make qemu-riscv64_smode_defconfig CROSS_COMPILE=riscv64-linux-gnu-
+make -j$(nproc) CROSS_COMPILE=riscv64-linux-gnu-
 cp u-boot.bin $WORKDIR
 ```
 
@@ -56,6 +54,7 @@ cp u-boot.bin $WORKDIR
 
 Run directly
 ```
+cd $WORKDIR
 ./run-term.sh
 ```
 
