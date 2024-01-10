@@ -20,7 +20,7 @@ Compile OpenSBI
 
 ```
 cd $WORKDIR
-git clone https://github.com/yli147/opensbi.git -b tee_debug
+git clone https://github.com/yli147/opensbi.git -b tee_debug-v2
 cd opensbi
 CROSS_COMPILE=riscv64-linux-gnu- make FW_PIC=n PLATFORM=generic
 cp build/platform/generic/firmware/fw_dynamic.elf $WORKDIR
@@ -56,14 +56,14 @@ cp u-boot.bin $WORKDIR
 
 Run directly
 ```
-./run.sh
+./run-term.sh
 ```
 
 GDB Debugging
 ```
 cd $WORKDIR
 Terminal 1 (Need GUI):
-./run-gdb.sh
+./run-term-gdb.sh
 Terminal 2:
 ./gdb-multiarch -x gdbscripts
 ```
