@@ -20,7 +20,7 @@ Compile OpenSBI
 
 ```
 cd $WORKDIR
-git clone https://github.com/yli147/opensbi.git -b tee_debug-v2
+git clone https://github.com/yli147/opensbi.git -b tee-debug-v2
 cd opensbi
 CROSS_COMPILE=riscv64-linux-gnu- make FW_PIC=n PLATFORM=generic
 cp build/platform/generic/firmware/fw_dynamic.elf $WORKDIR
