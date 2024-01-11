@@ -47,6 +47,26 @@ make -j$(nproc) CROSS_COMPILE=riscv64-linux-gnu-
 cp u-boot.bin $WORKDIR
 ```
 
+Compile Linux
+```
+cd $WORKDIR
+git clone https://github.com/ventanamicro/linux.git -b dev-upstream
+cd linux
+make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- defconfig
+make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -j $(nproc)
+ls arch/riscv/boot -lSh
+```
+
+Compile rootfs
+```
+cd $WORKDIR
+git clone https://github.com/buildroot/buildroot.git -b 2023.08.x
+cd buildroot
+make qemu_riscv64_virt_defconfig
+make -j $(nproc)
+ls ./output/images/rootfs.ext2
+```
+
 ![image](https://github.com/yli147/test_optee/assets/21300636/5cace914-0a82-404e-b106-fb148686f8ff)
 
 ![image](https://github.com/yli147/test_optee/assets/21300636/6e204e84-fae7-448b-824d-b610ad783339)
