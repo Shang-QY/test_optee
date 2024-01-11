@@ -80,7 +80,7 @@ cp u-boot.bin $WORKDIR
 Compile Linux
 ```
 cd $WORKDIR
-git clone https://github.com/ventanamicro/linux.git -b dev-upstream
+git clone https://github.com/yli147/linux.git -b dev-rpxy-optee
 cd linux
 make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- defconfig
 make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -j $(nproc)
