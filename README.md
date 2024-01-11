@@ -111,17 +111,32 @@ sudo losetup -D ${loopdevice}
 ![image](https://github.com/yli147/test_optee/assets/21300636/6e204e84-fae7-448b-824d-b610ad783339)
 
 
-Run directly
+Run u-boot only
 ```
 cd $WORKDIR
 ./run-term.sh
 ```
 
-GDB Debugging
+Run u-boot debugging
 ```
 cd $WORKDIR
 Terminal 1 (Need GUI):
 ./run-term-gdb.sh
+Terminal 2:
+./gdb-multiarch -x gdbscripts
+```
+
+Run u-boot + linux
+```
+cd $WORKDIR
+./run-term-linux.sh
+```
+
+Run u-boot + linux debugging
+```
+cd $WORKDIR
+Terminal 1 (Need GUI):
+./run-term-linux-gdb.sh
 Terminal 2:
 ./gdb-multiarch -x gdbscripts
 ```
