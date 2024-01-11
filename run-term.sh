@@ -5,6 +5,6 @@
     -numa node,nodeid=0,memdev=m0 -numa node,nodeid=1,memdev=m1 -smp 2,sockets=2,maxcpus=2 \
     -bios ./fw_dynamic.elf \
     -kernel ./u-boot/u-boot.bin \
-    -device loader,file=tee-pager_v2.bin,addr=0x80C00000 \
+    -device loader,file=tee-pager_v2.bin,addr=0xF0C00000 \
     -drive file=fat:rw:~/src/fat,id=hd0 -device virtio-blk-device,drive=hd0 \
     -nographic

@@ -27,7 +27,7 @@
 
 			tmem: tmem {
 				compatible = "opensbi,domain,memregion";
-				base = <0x0 0x80C00000>;
+				base = <0x0 0xF0C00000>;
 				order = <22>;   // 4M
 			};
 
@@ -42,7 +42,7 @@
 				regions = <&allmem 0x3f>;
 				possible-harts = <&cpu0>;
 				next-arg1 = <0x0 0x81F80000>;
-				next-addr = <0x0 0x80C00000>;
+				next-addr = <0x0 0xF0C00000>;
 				next-mode = <0x1>;
 			};
 
