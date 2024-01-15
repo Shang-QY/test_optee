@@ -198,6 +198,10 @@
 			compatible = "riscv,rpmi-mm";
 			opensbi-domain-instance = <&tdomain>;
 		};
+		sbi-rpxy-tee {
+                        riscv,sbi-rpxy-transport-id = <0x00>;
+                        compatible = "riscv,sbi-rpxy-tee";
+                };
 
 		mailbox@10001000 {
 			compatible = "riscv,rpmi-shmem-mbox";
@@ -405,4 +409,10 @@
 			compatible = "sifive,clint0\0riscv,clint0";
 		};
 	};
+firmware {
+    optee {
+      compatible = "linaro,optee-tz";
+      method = "smc";
+    };
+  };
 };
