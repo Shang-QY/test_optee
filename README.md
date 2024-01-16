@@ -152,6 +152,10 @@ label recovery-kernel-$version
         append root=/dev/vda1 ro earlycon single
 EOF
 
+wget -c https://raw.githubusercontent.com/Nuclei-Software/nuclei-linux-sdk/feature/optee_5.10/conf/evalsoc/S30optee
+sudo cp S30optee ./mnt/etc/init.d/
+sudo cp -rf ./optee_client/build/out/export/usr/* ./mnt/usr/
+
 sudo umount ./mnt
 sudo losetup -D ${loopdevice}
 ```
