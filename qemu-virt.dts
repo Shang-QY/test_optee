@@ -20,7 +20,7 @@
 
 	chosen {
 		rng-seed = <0x8905914f 0x915d7f5d 0xa38214d0 0x92a29bd2 0x345652fc 0x12aaf795 0x53af2a03 0x20eca695>;
-		stdout-path = "/soc/serial@10000000";
+		stdout-path = "/soc/serial@10002000";
 
 		opensbi-domains {
 			compatible = "opensbi,domain,config";
@@ -244,6 +244,14 @@
 			interrupt-parent = <0x0a>;
 			clock-frequency = <0x384000>;
 			reg = <0x00 0x10000000 0x00 0x100>;
+			compatible = "ns16550a";
+		};
+		
+		serial@10002000 {
+			interrupts = <0x0a 0x04>;
+			interrupt-parent = <0x0a>;
+			clock-frequency = <0x384000>;
+			reg = <0x00 0x10002000 0x00 0x100>;
 			compatible = "ns16550a";
 		};
 

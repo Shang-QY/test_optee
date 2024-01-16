@@ -124,7 +124,7 @@ default kernel-$version
 label kernel-$version
         menu label Linux kernel-$version
         kernel /boot/Image
-        append root=/dev/vda1 ro earlycon
+        append root=/dev/vda1 ro earlycon console=ttyS0,115200n8
 
 label recovery-kernel-$version
         menu label Linux kernel-$version (recovery mode)
@@ -156,17 +156,9 @@ Terminal 2:
 ./gdb-multiarch -x gdbscripts
 ```
 
-Run u-boot + linux
+Run u-boot + linux (Need GUI):
 ```
 cd $WORKDIR
-./run-term-linux.sh
+./run-linux.sh
 ```
 
-Run u-boot + linux debugging
-```
-cd $WORKDIR
-Terminal 1 (Need GUI):
-./run-term-linux-gdb.sh
-Terminal 2:
-./gdb-multiarch -x gdbscripts
-```
