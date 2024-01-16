@@ -66,6 +66,26 @@ make \
     TA_DEV_KIT_DIR=$WORKDIR/optee_os/out/riscv-plat-nuclei/export-ta_rv64
 ```
 
+Generate DTB
+```
+cd $WORKDIR
+dtc -I dts -O dtb -o qemu-virt-new.dtb ./qemu-virt.dts
+
+OR
+./qemu/build/qemu-system-riscv64 -d guest_errors -D guest_log.txt \
+    -M virt,aia=aplic-imsic,acpi=off,hmat=on,rpmi=on,dumpdtb=qemu-virt.dtb \
+    -m 4G,slots=2,maxmem=8G -object memory-backend-ram,size=2G,id=m0 -object memory-backend-ram,size=2G,id=m1 \
+    -numa node,nodeid=0,memdev=m0 -numa node,nodeid=1,memdev=m1 -smp 2,sockets=2,maxcpus=2 \
+    -bios ./fw_dynamic.elf \
+    -kernel ./u-boot/u-boot.bin \
+    -device loader,file=tee-pager_v2.bin,addr=0xF0C00000 \
+    -drive file=fat:rw:~/src/fat,id=hd0 -device virtio-blk-device,drive=hd0 \
+    -nographic
+dtc -I dtb -O dts -o qemu-virt-new.dts ./qemu-virt.dtb
+** Manually modify qemu-virt-new.dts **
+dtc -I dts -O dtb -o qemu-virt-new.dtb ./qemu-virt-new.dts
+```
+
 Compile U-Boot
 ```
 cd $WORKDIR
