@@ -155,6 +155,7 @@ EOF
 
 wget -c https://raw.githubusercontent.com/Nuclei-Software/nuclei-linux-sdk/feature/optee_5.10/conf/evalsoc/S30optee
 sudo cp S30optee ./mnt/etc/init.d/
+sudo chmod a+x ./mnt/etc/init.d/S30optee
 sudo cp -rf ./optee_client/build/out/export/usr/* ./mnt/usr/
 sudo mkdir -p ./mnt/lib/optee_armtz
 sudo cp ./optee_examples/hello_world/ta/8aaaf200-2450-11e4-abe2-0002a5d5c51b.ta ./mnt/lib/optee_armtz/
