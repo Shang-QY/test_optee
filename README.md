@@ -2,7 +2,7 @@
 
 Download this project
 ```
-git clone https://github.com/yli147/test_optee.git
+git clone https://github.com/yli147/test_optee.git -b tee-debug-nuclei-merge
 cd test_optee
 export WORKDIR=`pwd`
 ```
