@@ -119,6 +119,7 @@ ls ./output/images/rootfs.ext2
 
 Create Disk Image
 ```
+cd $WORKDIR
 dd if=/dev/zero of=disk.img bs=1M count=128
 sudo sgdisk -g --clear --set-alignment=1 \
        --new=1:34:-0:    --change-name=1:'rootfs'    --attributes=3:set:2 \
