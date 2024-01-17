@@ -37,15 +37,6 @@
 				order = <64>;
 			};
 
-			tdomain: trusted-domain {
-				compatible = "opensbi,domain,instance";
-				regions = <&allmem 0x3f>;
-				possible-harts = <&cpu0>;
-				next-arg1 = <0x0 0x81F80000>;
-				next-addr = <0x0 0xF0C00000>;
-				next-mode = <0x1>;
-			};
-
 			udomain: untrusted-domain {
 				compatible = "opensbi,domain,instance";
 				regions = <&tmem 0x0>, <&allmem 0x3f>;
@@ -90,7 +81,7 @@
 			reg = <0x00>;
 			status = "okay";
 			compatible = "riscv";
-			opensbi-domain = <&tdomain>;
+			opensbi-domain = <&udomain>;
 			riscv,cboz-block-size = <0x40>;
 			riscv,cbom-block-size = <0x40>;
 			riscv,isa = "rv64imafdch_zicbom_zicboz_zicsr_zifencei_zihintpause_zawrs_zfa_zca_zcd_zba_zbb_zbc_zbs_smaia_ssaia_sstc_svadu";
@@ -111,7 +102,7 @@
 			reg = <0x01>;
 			status = "okay";
 			compatible = "riscv";
-			opensbi-domain = <&tdomain>;
+			opensbi-domain = <&udomain>;
 			riscv,cboz-block-size = <0x40>;
 			riscv,cbom-block-size = <0x40>;
 			riscv,isa = "rv64imafdch_zicbom_zicboz_zicsr_zifencei_zihintpause_zawrs_zfa_zca_zcd_zba_zbb_zbc_zbs_smaia_ssaia_sstc_svadu";
@@ -194,10 +185,6 @@
 			compatible = "riscv,sbi-rpxy-clock";
 		};
 
-		rpmi-mm {
-			compatible = "riscv,rpmi-mm";
-			opensbi-domain-instance = <&tdomain>;
-		};
 		sbi-rpxy-tee {
                         riscv,sbi-rpxy-transport-id = <0x00>;
                         compatible = "riscv,sbi-rpxy-tee";
