@@ -1,0 +1,24 @@
+[submodule "qemu"]
+	path = qemu
+	url = https://github.com/Shang-QY/qemu.git
+[submodule "opensbi"]
+	path = opensbi
+	url = https://github.com/Shang-QY/opensbi.git
+[submodule "optee_os"]
+	path = optee_os
+	url = https://github.com/Shang-QY/optee_os.git
+[submodule "optee_client"]
+	path = optee_client
+	url = https://github.com/Shang-QY/optee_client.git
+[submodule "optee_examples"]
+	path = optee_examples
+	url = https://github.com/Shang-QY/optee_examples.git
+[submodule "u-boot"]
+	path = u-boot
+	url = https://github.com/u-boot/u-boot.git
+[submodule "buildroot"]
+	path = buildroot
+	url = https://github.com/buildroot/buildroot.git
+[submodule "linux"]
+	path = linux
+	url = https://github.com/Shang-QY/linux.git
