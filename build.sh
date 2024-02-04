@@ -1,5 +1,6 @@
 export WORKDIR=`pwd`
 cd opensbi
+CROSS_COMPILE=riscv64-linux-gnu- make FW_PIC=n PLATFORM=generic clean
 CROSS_COMPILE=riscv64-linux-gnu- make FW_PIC=n PLATFORM=generic
 cp build/platform/generic/firmware/fw_dynamic.elf $WORKDIR
 riscv64-linux-gnu-objdump -t -S build/platform/generic/firmware/fw_dynamic.elf > $WORKDIR/fw_dynamic.txt
