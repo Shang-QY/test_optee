@@ -1,8 +1,8 @@
 export WORKDIR=`pwd`
 loopdevice=`sudo losetup --partscan --find --show disk.img`
 cd ./optee_client/build
-cmake -DCMAKE_C_COMPILER=/opt/riscv/bin/riscv64-unknown-linux-gnu-gcc -DCMAKE_INSTALL_PREFIX=./out/export/usr .. clean
 cmake -DCMAKE_C_COMPILER=/opt/riscv/bin/riscv64-unknown-linux-gnu-gcc -DCMAKE_INSTALL_PREFIX=./out/export/usr ..
+make clean
 make
 make install
 cd -

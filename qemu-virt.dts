@@ -194,13 +194,11 @@
 			compatible = "riscv,sbi-rpxy-clock";
 		};
 
-		rpmi-mm {
-			compatible = "riscv,rpmi-mm";
-			opensbi-domain-instance = <&tdomain>;
-		};
 		sbi-rpxy-tee {
-                        riscv,sbi-rpxy-transport-id = <0x00>;
-                        compatible = "riscv,sbi-rpxy-tee";
+			opensbi-rpxy-tee-abi-addr = <0xf17f0000>;
+			opensbi-rpxy-tee-name = "linaro,optee";
+			opensbi-domain-instance = <&tdomain>;
+			compatible = "riscv,sbi-rpxy-tee";
                 };
 
 		mailbox@10001000 {
