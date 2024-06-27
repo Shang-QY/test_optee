@@ -25,11 +25,9 @@ make -j $(nproc)
 ```
 
 Compile OpenSBI
-
 ```
 cd opensbi
 CROSS_COMPILE=riscv64-linux-gnu- make FW_PIC=n PLATFORM=generic
-cp build/platform/generic/firmware/fw_dynamic.elf $WORKDIR
 ```
 
 Compile OPTEE-OS
@@ -77,20 +75,6 @@ cd -
 /opt/riscv/bin/riscv64-unknown-linux-gnu-objdump -t -S ./optee_examples/hello_world/ta/8aaaf200-2450-11e4-abe2-0002a5d5c51b.elf > $WORKDIR/8aaaf200-2450-11e4-abe2-0002a5d5c51b.txt
 ```
 
-Compile OPTEE-test
-```
-cd $WORKDIR
-git clone https://github.com/OP-TEE/optee_test.git
-optee_test_srcdir := $(srcdir)/optee/optee_test
-optee_test_wrkdir := $(wrkdir)/optee/optee_test
-optee_test_xtest := $(optee_test_wrkdir)/xtest/xtest
-optee_test_tadir := $(optee_test_wrkdir)/ta
-optee_test_plugindir := $(optee_test_wrkdir)/supp_plugin
-
-make -C $optee_test_srcdir O=$(optee_test_wrkdir) CROSS_COMPILE=$(CROSS_COMPILE) OPTEE_CLIENT_EXPORT=$(optee_client_export) \
-	--no-builtin-variables TA_DEV_KIT_DIR=$(optee_os_export) MARCH=$(ISA) MABI=$(ABI)
-```
-
 Generate DTB
 ```
 cd $WORKDIR
@@ -116,7 +100,6 @@ Compile U-Boot
 cd u-boot
 make qemu-riscv64_smode_defconfig CROSS_COMPILE=riscv64-linux-gnu-
 make -j$(nproc) CROSS_COMPILE=riscv64-linux-gnu-
-cp u-boot.bin $WORKDIR
 ```
 
 Compile Linux
@@ -137,31 +120,19 @@ ls ./output/images/rootfs.ext2
 
 Create Disk Image
 ```
-sudo ./mkdisk.sh
+sudo ./script/mkdisk.sh
 ```
 
-Run u-boot only
+Run u-boot + linux:
 ```
+Terminal 1:
 cd $WORKDIR
-./run-term.sh
-```
-
-Run u-boot debugging
-```
-cd $WORKDIR
-Terminal 1 (Need GUI):
-./run-term-gdb.sh
+./script/run-linux.sh
 Terminal 2:
-./gdb-multiarch -x gdbscripts
+telnet localhost 54320
 ```
 
-Run u-boot + linux (Need GUI):
-```
-cd $WORKDIR
-./run-linux.sh
-```
-
-After Login, execute 
+After Login in terminal 2 (user: root), execute 
 ```
 optee_example_hello_world
 ```
