@@ -36,6 +36,7 @@ sudo cp S30optee ./mnt/etc/init.d/
 sudo cp -rf ./optee_client/build/out/export/usr/* ./mnt/usr/
 
 sudo cp optee_examples/hello_world/host/optee_example_hello_world mnt/usr/bin
+sudo mkdir -p mnt/lib/optee_armtz/
 sudo cp -af optee_examples/hello_world/ta/*.ta mnt/lib/optee_armtz/
 
 sudo umount ./mnt
