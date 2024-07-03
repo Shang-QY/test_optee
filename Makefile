@@ -218,7 +218,7 @@ optee-os-devkit:
 $(UBOOT_PATH)/.config:
 	$(MAKE) -C $(UBOOT_PATH) qemu-riscv64_smode_defconfig CROSS_COMPILE=riscv64-linux-gnu-
 
-uboot: $(QEMU_BUILD)/config-host.mak
+uboot: $(UBOOT_PATH)/.config
 	$(MAKE) -C $(UBOOT_PATH) CROSS_COMPILE=riscv64-linux-gnu- -j $(nproc)
 	mkdir -p $(BINARIES_PATH)
 	ln -sf $(UBOOT_PATH)/u-boot.bin $(BINARIES_PATH)
@@ -264,7 +264,7 @@ optee_client:
 	make
 	make install
 
-OPTEE-examples:
+optee_examples:
 	cd $(OPTEE_EXAMPLES_PATH)/hello_world/host
 	make CROSS_COMPILE=$(RISCV64_CROSS_COMPILE) TEEC_EXPORT=$(OPTEE_CLIENT_PATH)/build/out/export/usr --no-builtin-variables
 	cd $(OPTEE_EXAMPLES_PATH)/hello_world/ta
