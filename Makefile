@@ -218,7 +218,7 @@ optee-os-devkit:
 $(UBOOT_PATH)/.config:
 	$(MAKE) -C $(UBOOT_PATH) qemu-riscv64_smode_defconfig CROSS_COMPILE=riscv64-linux-gnu-
 
-uboot: $(QEMU_BUILD)/config-host.mak
+uboot: $(UBOOT_PATH)/.config
 	$(MAKE) -C $(UBOOT_PATH) CROSS_COMPILE=riscv64-linux-gnu- -j $(nproc)
 	mkdir -p $(BINARIES_PATH)
 	ln -sf $(UBOOT_PATH)/u-boot.bin $(BINARIES_PATH)
@@ -255,20 +255,18 @@ linux-clean-common:
 ################################################################################
 # Buildroot Rootfs, Create Disk
 ################################################################################
+.PHONY: optee_client
 optee_client:
-	cd $(OPTEE_CLIENT_PATH)
-	mkdir build
-	cd build
-	cmake CFG_TEE_CLIENT_LOG_LEVEL=3 CFG_TEE_SUPP_LOG_LEVEL=3 -DCMAKE_C_COMPILER=$(RISCV64_CROSS_COMPILE)gcc -DCMAKE_INSTALL_PREFIX=./out/export/usr .. clean
-	cmake CFG_TEE_CLIENT_LOG_LEVEL=3 CFG_TEE_SUPP_LOG_LEVEL=3 -DCMAKE_C_COMPILER=$(RISCV64_CROSS_COMPILE)gcc -DCMAKE_INSTALL_PREFIX=./out/export/usr ..
-	make
-	make install
+	mkdir -p $(OPTEE_CLIENT_PATH)/build
+	cd $(OPTEE_CLIENT_PATH)/build && \
+		cmake CFG_TEE_CLIENT_LOG_LEVEL=3 CFG_TEE_SUPP_LOG_LEVEL=3 -DCMAKE_C_COMPILER=$(RISCV64_CROSS_COMPILE)gcc -DCMAKE_INSTALL_PREFIX=./out/export/usr $(OPTEE_CLIENT_PATH)
+	cd $(OPTEE_CLIENT_PATH)/build && \
+		make && make install
 
-OPTEE-examples:
-	cd $(OPTEE_EXAMPLES_PATH)/hello_world/host
-	make CROSS_COMPILE=$(RISCV64_CROSS_COMPILE) TEEC_EXPORT=$(OPTEE_CLIENT_PATH)/build/out/export/usr --no-builtin-variables
-	cd $(OPTEE_EXAMPLES_PATH)/hello_world/ta
-	make CROSS_COMPILE=$(RISCV64_CROSS_COMPILE) PLATFORM=vexpress-qemu_virt TA_DEV_KIT_DIR=$(OPTEE_OS_PATH)/out/riscv-plat-virt/export-ta_rv64
+.PHONY: optee_examples
+optee_examples:
+	make -C $(OPTEE_EXAMPLES_PATH)/hello_world/host CROSS_COMPILE=$(RISCV64_CROSS_COMPILE) TEEC_EXPORT=$(OPTEE_CLIENT_PATH)/build/out/export/usr --no-builtin-variables
+	make -C $(OPTEE_EXAMPLES_PATH)/hello_world/ta CROSS_COMPILE=$(RISCV64_CROSS_COMPILE) PLATFORM=vexpress-qemu_virt TA_DEV_KIT_DIR=$(OPTEE_OS_PATH)/out/riscv-plat-virt/export-ta_rv64
 
 buildroot-defconfig:
 	$(MAKE) -C $(BUILDROOT_PATH) qemu_riscv64_virt_defconfig
@@ -279,6 +277,7 @@ buildroot: buildroot-defconfig optee_client optee_examples
 	ln -sf $(ROOT)/disk.img $(BINARIES_PATH)
 
 buildroot-clean:
+	rm -f $(ROOT)/disk.img
 
 ################################################################################
 # Run targets
